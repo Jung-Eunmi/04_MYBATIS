@@ -1,6 +1,10 @@
 package com.ohgiraffers.section01.xmlconfig.controller;
 
+import com.ohgiraffers.section01.xmlconfig.model.dto.MenuDTO;
 import com.ohgiraffers.section01.xmlconfig.model.service.MenuService;
+import com.ohgiraffers.section01.xmlconfig.view.PrintResult;
+
+import java.util.List;
 
 public class MenuController {
 
@@ -13,16 +17,28 @@ public class MenuController {
     *   또한 호출한 수행 결과를 반환 받아 어떤 view 를 보여줄 지 결정하는 역할을 수행하게 된다.
     * */
 
+    // 안전한 코드를 위해 private final 로 초기화 시켜놓음
+    // final 을 사용하면 인스턴스를 꼭 생성해줘야함 (컴파일 에러남)
     private final MenuService menuService;
+    private final PrintResult printResult;
 
+    // MenuController 기본생성자로 MenuService,PrintResult 인스턴스 생성
+    // MenuController 객체가 생성 될때 자동으로 호출됨
     public MenuController() {
         this.menuService = new MenuService();
-
+        this.printResult = new PrintResult();
     }
 
     public void selectAllMenu() {
 
-        menuService.selectAllMenu();
+        List<MenuDTO> menuList = menuService.selectAllMenu();
+
+        // 메뉴리스트가 null이 아니다 = 정상 조회가 되었다
+        if(menuList != null){
+            printResult.printMenuList(menuList);
+        }else {
+            System.out.println("조회 결과가 없습니다.");
+        }
 
     }
 }
