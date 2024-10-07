@@ -63,6 +63,7 @@ public class Application {
         System.out.println("date = " + date);
 
         sqlSession.close();
+
     }
 
 }
