@@ -17,7 +17,7 @@ public class MybatisTemplate {
     *   가장 좋은 방식은 싱글톤 패턴을 이용하는 것이다.(1개의 인스턴스를 공유)
     * */
 
-    public static SqlSessionFactory sqlSessionFactory;
+    private static SqlSessionFactory sqlSessionFactory;
 
     // session 필요할 때 호출하는 메소드
     public static SqlSession getSqlSession() {
