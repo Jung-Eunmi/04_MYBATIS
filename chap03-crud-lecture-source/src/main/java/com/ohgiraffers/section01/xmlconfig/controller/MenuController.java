@@ -59,4 +59,51 @@ public class MenuController {
         }
 
     }
+
+    public void insertNewMenu(Map<String, String> parameter) {
+
+        String menuName = parameter.get("name");
+        int menuPrice = Integer.parseInt(parameter.get("price"));
+        int categoryCode = Integer.parseInt(parameter.get("category"));
+
+        // 서로 다른 자료형을 가진 연관있는 값들을 클래스로 뭉쳐서 전달
+        // MenuDTO 클래스 사용
+        MenuDTO newMenu = new MenuDTO();
+        newMenu.setMenuName(menuName);
+        newMenu.setMenuPrice(menuPrice);
+        newMenu.setCategoryCode(categoryCode);
+
+            // menuService 메소드가 boolean 타입이기 때문에 if 안에 넣을 수 있다.
+        if (menuService.insertNewMenu(newMenu)) {
+            printResult.printSuccessMessage("insert");
+        } else {
+            printResult.printErrorMessager("insert");
+        }
+
+    }
+
+    public void modifyMenu(Map<String, String> parameter) {
+
+        int code = Integer.parseInt(parameter.get("code"));
+        String name = parameter.get("name");
+        int price = Integer.parseInt(parameter.get("price"));
+        int categoryCode = Integer.parseInt(parameter.get("categoryCode"));
+
+        MenuDTO modifyMenu = new MenuDTO();
+        modifyMenu.setMenuCode(code);
+        modifyMenu.setMenuName(name);
+        modifyMenu.setMenuPrice(price);
+        modifyMenu.setCategoryCode(categoryCode);
+
+        if(menuService.modifyMenu(modifyMenu)) {
+            printResult.printSuccessMessage("update");
+        } else {
+            printResult.printErrorMessager("update");
+        }
+    }
+
+    public void deleteMenu(Map<String, String> parameter) {
+        int code = Integer.parseInt(parameter.get("code"));
+        menuService.deleteMenu(code);
+    }
 }

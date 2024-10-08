@@ -25,4 +25,18 @@ public class MenuDAO {
 
         return sqlSession.selectOne("MenuMapper.selectMenuByMenuCode", code);
     }
+
+    public int insertNewMenu(SqlSession sqlSession, MenuDTO newMenu) {
+
+        // inset 가 정상적으로 진행됬으면 정수 1 값을 반환해줌
+        return sqlSession.insert("MenuMapper.insertNewMenu", newMenu);
+    }
+
+    public int updateMenu(SqlSession sqlSession, MenuDTO modifyMenu) {
+
+        return sqlSession.update("MenuMapper.updateMenu", modifyMenu);
+    }
+
+    public int deleteMenu(SqlSession sqlSession, int code) {
+    }
 }

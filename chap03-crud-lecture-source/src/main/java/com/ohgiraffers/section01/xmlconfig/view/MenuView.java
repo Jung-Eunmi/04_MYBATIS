@@ -47,11 +47,17 @@ public class MenuView {
                 case 2 :
                     menuController.selectMenuByCode(inputMenuCode());
                     break;
-
+                case 3 :
+                    menuController.insertNewMenu(inputMenu());
+                    break;
+                case 4 :
+                    menuController.modifyMenu(inputModifyMenu());
+                    break;
+                case 5 :
+                    menuController.deleteMenu(inputDeleteMenu());
             }
 
         }while (true);
-
 
     }
 
@@ -63,6 +69,55 @@ public class MenuView {
 
         Map<String, String> parameter = new HashMap<>();
         parameter.put("menuCode", menuCode);
+
+        return parameter;
+    }
+
+    private static Map<String, String> inputMenu() {
+        // 메뉴 이름, 가격, 카테고리코드를 입력 받아 넘겨주기
+        Scanner sc = new Scanner(System.in);
+        System.out.print("신규 메뉴 이름을 입력하세요 : ");
+        String name = sc.nextLine();
+        System.out.print("신규 메뉴의 판매 가격을 입력하세요 : ");
+        String price = sc.nextLine();
+        System.out.print("신규 메뉴의 카테고리 코드를 입력하세요 : ");
+        String category = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("name", name);
+        parameter.put("price", price);
+        parameter.put("category", category);
+
+        return parameter;
+    }
+
+    private static Map<String, String> inputModifyMenu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("수정할 메뉴 코드를 입력하세요 : ");
+        String code = sc.nextLine();
+        System.out.print("수정할 메뉴 이름을 입력하세요 : ");
+        String name = sc.nextLine();
+        System.out.print("수정할 메뉴 가격을 입력하세요 : ");
+        String price = sc.nextLine();
+        System.out.print("수정할 카테고리 코드를 입력하세요 : ");
+        String categoryCode = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("code", code);
+        parameter.put("name", name);
+        parameter.put("price", price);
+        parameter.put("categoryCode", categoryCode);
+
+        return parameter;
+    }
+
+    private static Map<String, String> inputDeleteMenu() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("삭제할 메뉴 코드를 입력하세요 : ");
+        String code = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("code", code);
 
         return parameter;
     }
