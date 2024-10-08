@@ -2,6 +2,8 @@ package com.ohgiraffers.section01.xmlconfig.view;
 
 import com.ohgiraffers.section01.xmlconfig.controller.MenuController;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MenuView {
@@ -43,10 +45,27 @@ public class MenuView {
                     menuController.selectAllMenu();
                     break;
                 case 2 :
+                    menuController.selectMenuByCode(inputMenuCode());
+                    break;
+
             }
 
         }while (true);
 
 
     }
+
+    private static Map<String, String> inputMenuCode() {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("검색하실 메뉴 코드를 입력해주세요 : ");
+        String menuCode = sc.nextLine();
+
+        Map<String, String> parameter = new HashMap<>();
+        parameter.put("menuCode", menuCode);
+
+        return parameter;
+    }
+
+
 }
