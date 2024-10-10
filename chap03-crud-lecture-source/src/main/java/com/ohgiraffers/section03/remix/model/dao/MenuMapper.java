@@ -8,4 +8,11 @@ public interface MenuMapper {
 
     List<MenuDTO> selectAllMenu();
 
+    MenuDTO selectMenuByMenuCode(int code);
+
+    int insertNewMenu(MenuDTO newMenu);
+
+    int modifyMenu(MenuDTO modifyMenu);
+
+    int deleteMenu(int menuCode);
 }

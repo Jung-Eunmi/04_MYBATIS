@@ -28,4 +28,72 @@ public class MenuService {
         return menuList;
     }
 
+    public MenuDTO selectMenuByMenuCode(int code) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        menuMapper = sqlSession.getMapper(MenuMapper.class);
+
+        MenuDTO menu = menuMapper.selectMenuByMenuCode(code);
+
+        sqlSession.close();
+
+        return menu;
+    }
+
+    public boolean insertNewMenu(MenuDTO newMenu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        menuMapper = sqlSession.getMapper(MenuMapper.class);
+
+        int result = menuMapper.insertNewMenu(newMenu);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+     return result > 0 ? true : false;
+    }
+
+    public boolean modifyMenu(MenuDTO modifyMenu) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        menuMapper = sqlSession.getMapper(MenuMapper.class);
+
+        int result = menuMapper.modifyMenu(modifyMenu);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0 ? true : false;
+    }
+
+    public boolean deleteMenu(int menuCode) {
+        SqlSession sqlSession = getSqlSession();
+
+        menuMapper = sqlSession.getMapper(MenuMapper.class);
+
+        int result = menuMapper.deleteMenu(menuCode);
+
+        if(result > 0) {
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result > 0 ? true : false;
+    }
 }

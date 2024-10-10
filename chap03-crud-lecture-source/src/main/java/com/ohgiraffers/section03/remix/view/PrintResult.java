@@ -60,6 +60,8 @@ public class PrintResult {
             case "update" :
                 successMessage = "메뉴 수정 성공!!!!";
                 break;
+            case "delete" :
+                successMessage = "메뉴 삭제 성공!!!!";
         }
 
         System.out.println(successMessage);

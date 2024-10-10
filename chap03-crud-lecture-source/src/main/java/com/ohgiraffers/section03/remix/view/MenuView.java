@@ -44,17 +44,17 @@ public class MenuView {
                 case 1 :
                     menuController.selectAllMenu();
                     break;
-//                case 2 :
-//                    menuController.selectMenuByCode(inputMenuCode());
-//                    break;
-//                case 3 :
-//                    menuController.insertNewMenu(inputMenu());
-//                    break;
-//                case 4 :
-//                    menuController.modifyMenu(inputModifyMenu());
-//                    break;
-//                case 5 :
-//                    menuController.deleteMenu(inputDeleteMenu());
+                case 2 :
+                    menuController.selectMenuByCode(inputMenuCode());
+                    break;
+                case 3 :
+                    menuController.insertNewMenu(inputMenu());
+                    break;
+                case 4 :
+                    menuController.modifyMenu(inputModifyMenu());
+                    break;
+                case 5 :
+                    menuController.deleteMenu(inputDeleteMenu());
             }
 
         }while (true);
@@ -114,10 +114,10 @@ public class MenuView {
     private static Map<String, String> inputDeleteMenu() {
         Scanner sc = new Scanner(System.in);
         System.out.print("삭제할 메뉴 코드를 입력하세요 : ");
-        String code = sc.nextLine();
+        String menuCode = sc.nextLine();
 
         Map<String, String> parameter = new HashMap<>();
-        parameter.put("code", code);
+        parameter.put("menuCode", menuCode);
 
         return parameter;
     }
