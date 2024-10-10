@@ -86,10 +86,10 @@ public class MenuService {
         return result > 0 ? true : false;
     }
 
-    public void deleteMenu(int code) {
-        SqlSession sqlSession = getSqlSession();
-
-        int result = menuDAO.deleteMenu(sqlSession, code);
-    }
+//    public void deleteMenu(int code) {
+//        SqlSession sqlSession = getSqlSession();
+//
+//        int result = menuDAO.deleteMenu(sqlSession, code);
+//    }
 }
 

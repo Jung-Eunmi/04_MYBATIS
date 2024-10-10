@@ -102,8 +102,8 @@ public class MenuController {
         }
     }
 
-    public void deleteMenu(Map<String, String> parameter) {
-        int code = Integer.parseInt(parameter.get("code"));
-        menuService.deleteMenu(code);
-    }
+//    public void deleteMenu(Map<String, String> parameter) {
+//        int code = Integer.parseInt(parameter.get("code"));
+//        menuService.deleteMenu(code);
+//    }
 }

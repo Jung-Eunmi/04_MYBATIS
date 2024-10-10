@@ -1,6 +1,6 @@
-package com.ohgiraffers.section01.xmlconfig.view;
+package com.ohgiraffers.section03.remix.view;
 
-import com.ohgiraffers.section01.xmlconfig.controller.MenuController;
+import com.ohgiraffers.section03.remix.controller.MenuController;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,15 +44,15 @@ public class MenuView {
                 case 1 :
                     menuController.selectAllMenu();
                     break;
-                case 2 :
-                    menuController.selectMenuByCode(inputMenuCode());
-                    break;
-                case 3 :
-                    menuController.insertNewMenu(inputMenu());
-                    break;
-                case 4 :
-                    menuController.modifyMenu(inputModifyMenu());
-                    break;
+//                case 2 :
+//                    menuController.selectMenuByCode(inputMenuCode());
+//                    break;
+//                case 3 :
+//                    menuController.insertNewMenu(inputMenu());
+//                    break;
+//                case 4 :
+//                    menuController.modifyMenu(inputModifyMenu());
+//                    break;
 //                case 5 :
 //                    menuController.deleteMenu(inputDeleteMenu());
             }

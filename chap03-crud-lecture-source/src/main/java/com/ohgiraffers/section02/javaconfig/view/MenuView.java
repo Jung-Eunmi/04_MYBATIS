@@ -44,17 +44,17 @@ public class MenuView {
                 case 1 :
                     menuController.selectAllMenu();
                     break;
-                case 2 :
-                    menuController.selectMenuByCode(inputMenuCode());
-                    break;
-                case 3 :
-                    menuController.insertNewMenu(inputMenu());
-                    break;
-                case 4 :
-                    menuController.modifyMenu(inputModifyMenu());
-                    break;
-                case 5 :
-                    menuController.deleteMenu(inputDeleteMenu());
+//                case 2 :
+//                    menuController.selectMenuByCode(inputMenuCode());
+//                    break;
+//                case 3 :
+//                    menuController.insertNewMenu(inputMenu());
+//                    break;
+//                case 4 :
+//                    menuController.modifyMenu(inputModifyMenu());
+//                    break;
+//                case 5 :
+//                    menuController.deleteMenu(inputDeleteMenu());
             }
 
         }while (true);
