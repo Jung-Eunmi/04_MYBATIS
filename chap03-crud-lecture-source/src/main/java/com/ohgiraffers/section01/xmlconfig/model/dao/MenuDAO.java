@@ -37,6 +37,7 @@ public class MenuDAO {
         return sqlSession.update("MenuMapper.updateMenu", modifyMenu);
     }
 
-    public int deleteMenu(SqlSession sqlSession, int code) {
-    }
+//    public int deleteMenu(SqlSession sqlSession, int code) {
+//
+//    }
 }
