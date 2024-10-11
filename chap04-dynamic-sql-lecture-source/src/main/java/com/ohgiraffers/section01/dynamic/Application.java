@@ -24,6 +24,8 @@ public class Application {
             switch (no){
                 case 1 :
                     ifsubMenu(); break;
+                case 2 :
+                    chooseSubMenu(); break;
 
                 case 9 :
                     System.out.println("프로그램 종료"); return;
@@ -41,7 +43,7 @@ public class Application {
             System.out.println("=================if 서브메뉴=================");
             System.out.println("1. 원하는 금액 대 적합한 추천 메뉴 목록 보여주기");
             System.out.println("2. 메뉴 이름 or 카테고리 명으로 검색해서 메뉴 목록 보여주기");
-            System.out.println("9. 이전 메뉴로");
+            System.out.println("9. 이전 메뉴로 돌아가기");
             System.out.print("원하는 메뉴를 선택해주세요 : ");
             int no = sc.nextInt();
 
@@ -75,6 +77,35 @@ public class Application {
         String value = sc.nextLine();
 
         return new SearchCriteria(condition, value);
+    }
+
+    private static void chooseSubMenu() {
+        Scanner sc = new Scanner(System.in);
+        MenuService menuService = new MenuService();
+
+        do{
+            System.out.println("=================choose 서브메뉴=================");
+            System.out.println("1. 카테고리 상위 분류별 메뉴 보여주기(식사, 음료, 디저트)");
+            System.out.println("9. 이전 메뉴로 돌아가기");
+            System.out.print("메뉴 번호를 입력하세요 : ");
+            int no = sc.nextInt();
+
+            switch (no) {
+                case 1 :
+                    menuService.searchMenuBySupCategory(inputSupCategory()); break;
+                case 9 :
+                    return;
+            }
+
+        }while (true);
+    }
+
+    private static SearchCriteria inputSupCategory() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("상위 분류를 입력해주세요(식사, 음료, 디저트) : ");
+        String value = sc.nextLine();
+
+        return new SearchCriteria("category", value);
     }
 
 

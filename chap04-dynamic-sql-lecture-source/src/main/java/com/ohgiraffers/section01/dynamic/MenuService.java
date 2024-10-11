@@ -65,4 +65,23 @@ public class MenuService {
 
         sqlSession.close();
     }
+
+    public void searchMenuBySupCategory(SearchCriteria searchCriteria) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+
+        List<MenuDTO> menuList = mapper.searchMenuBySupCategory(searchCriteria);
+
+        if(menuList != null && menuList.size() > 0) {
+            for(MenuDTO menu : menuList){
+                System.out.println(menu);
+            }
+        } else {
+            System.out.print("검색 결과 없습니다.");
+        }
+
+        sqlSession.close();
+    }
 }
