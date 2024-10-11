@@ -16,10 +16,10 @@ public class Template {
 
         if(sqlSessionFactory == null) {
 
-            String resourve = "config/mybatis-config.xml";
+            String resource = "config/mybatis-config.xml";
 
             try {
-                InputStream inputStream = Resources.getResourceAsStream(resourve);
+                InputStream inputStream = Resources.getResourceAsStream(resource);
 
                 sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 
