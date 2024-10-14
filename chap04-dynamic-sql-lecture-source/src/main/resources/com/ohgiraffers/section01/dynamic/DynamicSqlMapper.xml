@@ -166,7 +166,7 @@
                  - 또한, where 엘리먼트 내부에 모든 쿼리문이 동작하지 않는다면 where 무시한다.(nameValue,categoryValue == null)
                  - where 엘리먼트 내부 쿼리문에 where 를 직접 입력하면 where where 구문이 되므로 주의해야 한다.
                  - 엘리먼트 내부 쿼리문이 AND || OR 로 시작한다면 자동으로 지워준다. ★
-        -->
+ -->
 <!--            <where>-->
 <!--            <if test="nameValue != null">-->
 <!--                MENU_NAME LIKE CONCAT('%', #{nameValue}, '%')-->
@@ -185,14 +185,37 @@
                   3. suffix 속성 : 처리 후 엘리먼트의 내용이 있으면 가장 뒤에 붙여주는 내용 기술
                   4. suffixOverrides 속성 : 처리 후 엘리먼트의 내용 중 가장 뒤에 속성 값에 해당하는 문자 삭제
         -->
-        <trim>
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
             <if test="nameValue != null">
                 MENU_NAME LIKE CONCAT('%', #{nameValue}, '%')
             </if>
             <if test="categoryValue != null">
-                AND
-                CATEGORY_CODE = #{categoryValue}
+                AND CATEGORY_CODE = #{categoryValue}    <!-- AND 랑 띄어쓰기하면 안됨 -->
             </if>
         </trim>
     </select>
+
+    <update id="modifyMenu" parameterType="hashmap">
+        <!-- 이 쿼리문은 모든 컬럼에 대해 수정할 값을 입력한다는 가정하에 작성이 되었다.
+             값을 입력한 일부 컬럼만 변경하고 싶다면?
+             <if> 태그를 사용해서 일부 컬럼만 수정하게 바꿔보자 -->
+<!--        UPDATE-->
+<!--            TBL_MENU-->
+<!--        SET-->
+<!--            MENU_NAME = #{ name },-->
+<!--            CATEGORY_CODE = #{ categoryCode },-->
+<!--            ORDERABLE_STATUS = #{ orderableStatus }-->
+<!--        WHERE-->
+<!--            MENU_CODE = #{ code }-->
+        UPDATE TBL_MENU
+        <if test="name != null and name != ''">
+            SET MENU_NAME = #{ name }
+        </if>
+        <if test="categoryCode != null and categoryCode gt 0">
+            , CATEGORY_CODE = #{ categoryCode },
+        </if>
+        ORDERABLE_STATUS = #{ orderableStatus }
+        WHERE
+        MENU_CODE = #{ code }
+    </update>
 </mapper>
