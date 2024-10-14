@@ -84,4 +84,63 @@ public class MenuService {
 
         sqlSession.close();
     }
+
+    public void searchMenuByRandomCode(List<Integer> randomCodeList) {
+
+        SqlSession sqlSession = getSqlSession();
+
+        mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+
+        Map<String, List<Integer>> criteria = new HashMap<>();
+        // Map 형식으로 우리가 만든 5개의 랜덤코드 리스트 집어넣기
+        criteria.put("randomCodeList", randomCodeList);
+
+        List<MenuDTO> menuList = mapper.searchMenuByRandomCode(criteria);
+
+        if(menuList != null && menuList.size() > 0) {
+            for(MenuDTO menu : menuList){
+                System.out.println(menu);
+            }
+        } else {
+            System.out.print("검색 결과 없습니다.");
+        }
+
+        sqlSession.close();
+
+    }
+
+    public void searchMenuByCodeOrSearchAll(SearchCriteria searchCriteria) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+
+        List<MenuDTO> menuList = mapper.searchMenuByCodeOrSearchAll(searchCriteria);
+
+        if(menuList != null && menuList.size() > 0) {
+            for(MenuDTO menu : menuList){
+                System.out.println(menu);
+            }
+        } else {
+            System.out.print("검색 결과 없습니다.");
+        }
+
+        sqlSession.close();
+    }
+
+    public void searchMenuByNameOrCategory(Map<String, Object> criteria) {
+
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(DynamicSqlMapper.class);
+
+        List<MenuDTO> menuList = mapper.searchMenuByNameOrCategory(criteria);
+
+        if(menuList != null && menuList.size() > 0) {
+            for(MenuDTO menu : menuList){
+                System.out.println(menu);
+            }
+        } else {
+            System.out.print("검색 결과 없습니다.");
+        }
+
+        sqlSession.close();
+    }
 }
