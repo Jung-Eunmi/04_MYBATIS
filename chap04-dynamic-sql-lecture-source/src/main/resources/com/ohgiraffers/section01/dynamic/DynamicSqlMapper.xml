@@ -207,15 +207,34 @@
 <!--            ORDERABLE_STATUS = #{ orderableStatus }-->
 <!--        WHERE-->
 <!--            MENU_CODE = #{ code }-->
+<!--        UPDATE TBL_MENU-->
+        <!-- <set> 엘리먼트 는 set 을 붙여주고 구분자(,) 를 제거해주는 역할을 한다. -->
+<!--        <set>-->
+<!--            <if test="name != null and name != ''">-->
+<!--                MENU_NAME = #{ name }-->
+<!--            </if>-->
+<!--            <if test="categoryCode != null and categoryCode gt 0">-->
+<!--                , CATEGORY_CODE = #{ categoryCode }-->
+<!--            </if>-->
+<!--            <if test="orderableStatus != null and orderableStatus != ''">-->
+<!--                , ORDERABLE_STATUS = #{ orderableStatus }-->
+<!--            </if>-->
+<!--        </set>-->
+<!--        WHERE MENU_CODE = #{ code }-->
         UPDATE TBL_MENU
-        <if test="name != null and name != ''">
-            SET MENU_NAME = #{ name }
-        </if>
-        <if test="categoryCode != null and categoryCode gt 0">
-            , CATEGORY_CODE = #{ categoryCode },
-        </if>
-        ORDERABLE_STATUS = #{ orderableStatus }
-        WHERE
-        MENU_CODE = #{ code }
+        <trim prefix="SET" prefixOverrides=",">
+            <if test="name != null and name != ''">
+                MENU_NAME = #{ name }
+            </if>
+            <if test="categoryCode != null and categoryCode gt 0">
+                , CATEGORY_CODE = #{ categoryCode }
+            </if>
+            <if test="orderableStatus != null and orderableStatus != ''">
+                , ORDERABLE_STATUS = #{ orderableStatus }
+            </if>
+        </trim>
+        WHERE MENU_CODE = #{ code }
     </update>
+
+
 </mapper>
