@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dmsaltest.test.model.dao.EmployeeMapper">
+
+    <resultMap id="memberResultMap" type="com.dmsaltest.test.model.dto.EmployeeDTO">
+        <id property="empId" column="EMP_ID"/>
+        <result property="empName" column="EMP_NAME"/>
+        <result property="empNo" column="EMP_NO"/>
+        <result property="email" column="EMAIL"/>
+        <result property="phone" column="PHONE"/>
+        <result property="deptCode" column="DEPT_CODE"/>
+        <result property="jobCode" column="JOB_CODE"/>
+        <result property="salLevel" column="SAL_LEVEL"/>
+        <result property="salary" column="SALARY"/>
+        <result property="bonus" column="BONUS"/>
+        <result property="managerId" column="MANAGER_ID"/>
+        <result property="hireDate" column="HIRE_DATE"/>
+        <result property="entDate" column="ENT_DATE"/>
+        <result property="entYn" column="ENT_YN"/>
+    </resultMap>
+
+    <select id="selectBySalary" parameterType="_int" resultMap="memberResultMap">
+        SELECT
+            *
+        FROM
+            EMPLOYEE
+        <where>
+            <if test="salary gte 0 and salary lte 2000000">
+                <![CDATA[
+                AND SALARY < #{salary}
+            ]]>
+            </if>
+            <if test="salary gt 2000000 and salary lte 5000000">
+                AND SALARY BETWEEN 2000000 AND #{salary}
+            </if>
+            <if test="salary gt 4000000">
+                AND SALARY BETWEEN 4000000  AND #{salary}
+            </if>
+        </where>
+        ORDER BY
+            EMP_NO
+    </select>
+
+
+    <select id="selectByDeptCode" parameterType="com.dmsaltest.test.model.dto.SearchCriteria" resultMap="memberResultMap">
+        SELECT
+            *
+        FROM
+            EMPLOYEE
+        <where>
+            <choose>
+                <when test="value == '인사관리부'">
+                    DEPT_CODE IN ('D1')
+                </when>
+                <when test="value == '회계관리부'">
+                    DEPT_CODE IN ('D2')
+                </when>
+                <when test="value == '해외영업1부'">
+                    DEPT_CODE IN ('D5')
+                </when>
+                <when test="value == '해외영업2부'">
+                    DEPT_CODE IN ('D6')
+                </when>
+                <when test="value == '기술지원부'">
+                    DEPT_CODE IN ('D8')
+                </when>
+                <when test="value == '총무부'">
+                    DEPT_CODE IN ('D9')
+                </when>
+            </choose>
+        </where>
+        ORDER BY
+            EMP_NO
+    </select>
+
+</mapper>
