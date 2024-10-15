@@ -3,8 +3,7 @@ package com.dmsaltest.test.view;
 import com.dmsaltest.test.controller.EmployeeController;
 import com.dmsaltest.test.model.dto.SearchCriteria;
 
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class EmployeeView {
 
@@ -30,6 +29,8 @@ public class EmployeeView {
                     employeeController.selectBySalary(inputSqlary()); break;
                 case 2 :
                     employeeController.selectBydeptCode(inputDeptCode()); break;
+                case 3 :
+                    employeeController.selectByRandom(inputRandom()); break;
                 case 9 :
                     return;
             }
@@ -38,6 +39,7 @@ public class EmployeeView {
 
 
     }
+
 
     private static int inputSqlary() {
         Scanner sc = new Scanner(System.in);
@@ -53,5 +55,18 @@ public class EmployeeView {
         String value = sc.nextLine();
 
         return new SearchCriteria("deptName", value);
+    }
+
+    private static List<Integer> inputRandom() {
+        Set<Integer> set = new HashSet<>();
+        while(set.size() > 2){
+            int random = ((int)(Math.random()*20))+200;
+            set.add(random);
+        }
+
+        List<Integer> employeeList = new ArrayList<>(set);
+        Collections.sort(employeeList);
+
+        return employeeList;
     }
 }
