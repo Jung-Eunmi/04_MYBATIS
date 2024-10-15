@@ -23,6 +23,10 @@ public class Application {
                     elementService.selectCacheTest(); break;
                 case 2 :
                     resultMapSubMenu(); break;
+                case 3 :
+                    elementService.sqlTest(); break;
+                case 4 :
+
             }
 
         }while (true);
@@ -51,8 +55,9 @@ public class Application {
                     elementService.selectResultMapConstructor(); break;
                 case 3 :
                     elementService.selectResultMapAssociation(); break;
+                case 4 :
+                    elementService.selectResultMapCollection(); break;
             }
-
 
         }while (true);
     }

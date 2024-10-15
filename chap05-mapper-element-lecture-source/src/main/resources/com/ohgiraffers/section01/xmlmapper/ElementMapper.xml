@@ -6,8 +6,7 @@
 <mapper namespace="com.ohgiraffers.section01.xmlmapper.ElementMapper">
     <!-- comment.
             Mapper.xml 파일에서 사용할 수 있는 태그 엘리먼트는 총 9가지이다.
-             = <cache>, <cache-ref>, <resultMap>, <parameterMap>, <sql>, <select>, <insert>, <update>, <delete>
-    -->
+             = <cache>, <cache-ref>, <resultMap>, <parameterMap>, <sql>, <select>, <insert>, <update>, <delete> -->
 
 <!-- ===============================================cache==================================================== -->
 
@@ -15,13 +14,14 @@
             - 캐시란 ?  데이터나 값을 미리 복사해 둔 임시의 장소를 의미한다.
             - 동일한 값을 DB 에서 꺼내오는 과정을 생략하고 싶을 때 사용한다.
             - 캐시 설정은 많이 반복 될 작업에 적용하는 것이 효과적이다.
+            - 캐시 설정에서 벗어나고 싶은 경우 useCache = false 를 사용하면 된다.
              1. eviction : 캐시 알고리즘 디폴트 설정 LRU
              2. flushInterval : 설정 된 캐시를 얼마나 유지할지 밀리초로 설정
              3. size : 캐시에 저장 될 객체의 수. 디폴트 1024(최대 용량)
              4. readOnly : 읽기만 가능한 경우 캐시에 저장 된 데이터 변경이 되지 않음 -->
     <cache eviction="LRU" flushInterval="1000" size="512" readOnly="true"/>
 
-    <select id="selectCacheTest" resultType="java.lang.String">
+    <select id="selectCacheTest" resultType="java.lang.String" useCache="false">
         SELECT
             MENU_NAME
         FROM
@@ -30,7 +30,7 @@
 
 <!-- ===============================================resultMap==================================================== -->
 
-    <!-- comment. <resultMap> 엘리먼트 ★
+    <!-- comment. <resultMap> ★
             1. DB 에서 조회 한 결과 데이터를 java 객체에 매핑하는 방법을 정의하는 엘리먼트 ★
             2. resultMap 은 MyBatis 에서 가장 중요하고 강력한 엘리먼트이다.
             3. JDBC 의 ResultSet 에서 데이터를 가져올 때 작성되었던 코드를 혁신적으로 줄여주는 역할
@@ -66,6 +66,8 @@
             ORDERABLE_STATUS = 'Y'
     </select>
 
+<!-- index ===================================resultMap 하위 엘리먼트========================================= -->
+
     <!-- comment. resultMap 의 하위 엘리먼트
             1. id : pk 컬럼을 매핑하기 위한 태그엘리먼트
             2. result : pk 가 아닌 컬럼을 매핑하기 위한 엘리먼트
@@ -76,6 +78,9 @@
             <idArg>, <arg> 하위 엘리먼트를 가지고 있다. (arg : 전달인자)
             resultMap 의 id, result 엘리먼트는 setter 를 사용하기 대문에 property 를 지정해야한다.
             constructor 는 생성자를 사용해서 값을 집어 넣어주기 때문에 매개변수가 있는 생성자의 순서와 타입을 맞춰서 작성해야 한다. -->
+
+<!-- =====================================resultMap(constructor)============================================ -->
+
     <resultMap id="menuResultMap3" type="com.ohgiraffers.common.MenuDTO">
         <constructor>
             <idArg column="MENU_CODE" javaType="_int"/>
@@ -95,21 +100,36 @@
             ORDERABLE_STATUS = 'Y'
     </select>
 
-    <!-- comment. association 엘리먼트
-            resultMap 을 구성하는 방법 1. 따로 만든 result 이용
+<!-- =====================================resultMap(association)============================================ -->
 
-     -->
-    <resultMap id="categoryResultMap" type="com.ohgiraffers.common.CategoryDTO">
-        <id property="code" column="CATEGORY_CODE"/>
-        <result property="name" column="CATEGORY_NAME"/>
-        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
-    </resultMap>
+    <!-- comment. association 엘리먼트
+            resultMap 을 구성하는 방법 1. 따로 만든 result 이용 -->
+<!--    <resultMap id="categoryResultMap" type="com.ohgiraffers.common.CategoryDTO">-->
+<!--        <id property="code" column="CATEGORY_CODE"/>-->
+<!--        <result property="name" column="CATEGORY_NAME"/>-->
+<!--        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>-->
+<!--    </resultMap>-->
+<!--    <resultMap id="menuAndCategoryResultMap" type="com.ohgiraffers.common.MenuAndCategoryDTO">-->
+<!--        <id property="code" column="MENU_CODE"/>-->
+<!--        <result property="name" column="MENU_NAME"/>-->
+<!--        <result property="price" column="MENU_PRICE"/>-->
+<!--        <result property="orderableStatus" column="ORDERABLE_STATUS"/>-->
+<!--        <association property="categoryDTO" resultMap="categoryResultMap"/>-->
+<!--    </resultMap>-->
+
+
+    <!-- comment. association 엘리먼트
+            resultMap 을 구성하는 방법 2. association 내부에 id 와 result 이용 -->
     <resultMap id="menuAndCategoryResultMap" type="com.ohgiraffers.common.MenuAndCategoryDTO">
         <id property="code" column="MENU_CODE"/>
         <result property="name" column="MENU_NAME"/>
         <result property="price" column="MENU_PRICE"/>
         <result property="orderableStatus" column="ORDERABLE_STATUS"/>
-        <association property="categoryDTO" resultMap="categoryResultMap"/>
+        <association property="categoryDTO" javaType="com.ohgiraffers.common.CategoryDTO">
+            <id property="code" column="CATEGORY_CODE"/>
+            <result property="name" column="CATEGORY_NAME"/>
+            <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+        </association>
     </resultMap>
 
     <select id="selectResultMapAssociationTest" resultMap="menuAndCategoryResultMap">
@@ -131,6 +151,58 @@
             A.ORDERABLE_STATUS = 'Y'
     </select>
 
-<!-- ===============================================resultMap==================================================== -->
+<!-- =====================================resultMap(collection)============================================ -->
 
+    <resultMap id="categoryAndMenuCategoryResultMap" type="com.ohgiraffers.common.CategoryAndMenuDTO">
+        <id property="code" column="CATEGORY_CODE"/>
+        <result property="name" column="CATEGORY_NAME"/>
+        <result property="refCategoryCode" column="REF_CATEGORY_CODE"/>
+        <collection property="menuList" ofType="com.ohgiraffers.common.MenuDTO">
+            <id property="code" column="MENU_CODE"/>
+            <result property="name" column="MENU_NAME"/>
+            <result property="price" column="MENU_PRICE"/>
+            <result property="categoryCode" column="CATEGORY_CODE"/>
+            <result property="orderableStatus" column="ORDERABLE_STATUS"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectResultMapCollection" resultMap="categoryAndMenuCategoryResultMap">
+        SELECT
+            A.CATEGORY_CODE,
+            A.CATEGORY_NAME,
+            A.REF_CATEGORY_CODE,
+            B.MENU_CODE,
+            B.MENU_NAME,
+            B.MENU_PRICE,
+            B.CATEGORY_CODE,
+            B.ORDERABLE_STATUS
+        FROM
+            TBL_CATEGORY A
+        LEFT JOIN
+            TBL_MENU B
+        ON
+            (A.CATEGORY_CODE = B.CATEGORY_CODE)
+        ORDER BY
+            A.CATEGORY_CODE
+    </select>
+
+<!-- =================================================sql==================================================== -->
+
+    <!-- comment. <sql>
+            sql 란 ? 각 매핑 구문에서 공통적으로 사용할 수 있는 SQL 문자열의 일부를 정의하고 필요 시 재사용하기 위한 목적 -->
+    <sql id="menuColumn">
+        MENU_CODE,
+        MENU_NAME,
+        MENU_PRICE,
+        CATEGORY_CODE,
+        ORDERABLE_STATUS
+    </sql>
+
+    <select id="selectSqlTest" resultMap="menuResultMap2">
+        SELECT
+            <include refid="menuColumn"/>
+        FROM
+            TBL_MENU
+    </select>
+    
 </mapper>

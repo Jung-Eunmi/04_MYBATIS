@@ -39,4 +39,9 @@ public class EmployeeController {
             printResult.printErrorMessage("selectDeptCodeList");
         }
     }
+
+    public void selectByRandom(List<Integer> employeeList) {
+        List<EmployeeDTO> em
+
+    }
 }
