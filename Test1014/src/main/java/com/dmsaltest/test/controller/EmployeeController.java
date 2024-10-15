@@ -40,8 +40,15 @@ public class EmployeeController {
         }
     }
 
-    public void selectByRandom(List<Integer> employeeList) {
-        List<EmployeeDTO> em
+    public void selectByRandom(List<Integer> empIdRandom) {
+
+        List<EmployeeDTO> employeeList = employeeService.selectByRandom(empIdRandom);
+
+        if(employeeList != null) {
+            printResult.printEmployeeByRandom(employeeList);
+        } else {
+            printResult.printErrorMessage("selectRandom");
+        }
 
     }
 }

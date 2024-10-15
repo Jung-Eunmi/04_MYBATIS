@@ -76,4 +76,18 @@
             EMP_NO
     </select>
 
+    <select id="selectByRandom" parameterType="hashmap" resultMap="memberResultMap">
+        SELECT
+            *
+        FROM
+            EMPLOYEE
+        WHERE
+            EMP_ID IN
+        <foreach collection="empIdRandom" item="empId" open="(" close=")" separator=",">
+            #{empId}
+        </foreach>
+
+
+    </select>
+
 </mapper>

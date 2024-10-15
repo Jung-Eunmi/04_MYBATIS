@@ -59,14 +59,14 @@ public class EmployeeView {
 
     private static List<Integer> inputRandom() {
         Set<Integer> set = new HashSet<>();
-        while(set.size() > 2){
+        while(set.size() < 3){
             int random = ((int)(Math.random()*20))+200;
             set.add(random);
         }
 
-        List<Integer> employeeList = new ArrayList<>(set);
-        Collections.sort(employeeList);
+        List<Integer> empIdRandom = new ArrayList<>(set);
+        Collections.sort(empIdRandom);
 
-        return employeeList;
+        return empIdRandom;
     }
 }
