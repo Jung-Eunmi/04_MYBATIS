@@ -37,7 +37,7 @@ public class ElementService {
 
     }
 
-//ResultMap====================================================================================
+//ResultMap 1번 resultMap=================================================================
     public void selectResultMapTest() {
         SqlSession sqlSession = getSqlSession();
         mapper = sqlSession.getMapper(ElementMapper.class);
@@ -49,5 +49,24 @@ public class ElementService {
         }
 
         sqlSession.close();
+    }
+//ResultMap 2번 constructor=================================================================
+    public void selectResultMapConstructor() {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(ElementMapper.class);
+
+        List<MenuDTO> menuList = mapper.selectResultMapConstructor();
+
+        for(MenuDTO menu : menuList){
+            System.out.println(menu);
+        }
+
+        sqlSession.close();
+    }
+//ResultMap 3번 association=================================================================
+    public void selectResultMapAssociation() {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(ElementMapper.class);
+
     }
 }

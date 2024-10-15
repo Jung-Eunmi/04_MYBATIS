@@ -9,4 +9,6 @@ public interface ElementMapper {
     List<String> selectCacheTest();
 
     List<MenuDTO> selectResultMapTest();
+
+    List<MenuDTO> selectResultMapConstructor();
 }

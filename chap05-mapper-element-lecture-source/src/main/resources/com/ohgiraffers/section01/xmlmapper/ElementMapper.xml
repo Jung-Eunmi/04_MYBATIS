@@ -9,6 +9,8 @@
              = <cache>, <cache-ref>, <resultMap>, <parameterMap>, <sql>, <select>, <insert>, <update>, <delete>
     -->
 
+<!-- ===============================================cache==================================================== -->
+
     <!-- comment. <cache>
             - 캐시란 ?  데이터나 값을 미리 복사해 둔 임시의 장소를 의미한다.
             - 동일한 값을 DB 에서 꺼내오는 과정을 생략하고 싶을 때 사용한다.
@@ -25,6 +27,8 @@
         FROM
             TBL_MENU
     </select>
+
+<!-- ===============================================resultMap==================================================== -->
 
     <!-- comment. <resultMap> 엘리먼트 ★
             1. DB 에서 조회 한 결과 데이터를 java 객체에 매핑하는 방법을 정의하는 엘리먼트 ★
@@ -62,5 +66,39 @@
             ORDERABLE_STATUS = 'Y'
     </select>
 
+    <!-- comment. resultMap 의 하위 엘리먼트
+            1. id : pk 컬럼을 매핑하기 위한 태그엘리먼트
+            2. result : pk 가 아닌 컬럼을 매핑하기 위한 엘리먼트
+            3. constructor : 결과를 매핑 할 클래스의 생성자를 통해 매핑하기 위한 엘리먼트
+            4. association : 관계 맺어진 테이블 간의 1 : 1 포함 관계인 경우 사용
+            5. collection : 관계 맺어진 테이블 간의 1 : M 포함 관계인 경우 사용 -->
+    <!-- comment. constructor 엘리먼트
+            <idArg>, <arg> 하위 엘리먼트를 가지고 있다. (arg : 전달인자)
+            resultMap 의 id, result 엘리먼트는 setter 를 사용하기 대문에 property 를 지정해야한다.
+            constructor 는 생성자를 사용해서 값을 집어 넣어주기 때문에 매개변수가 있는 생성자의 순서와 타입을 맞춰서 작성해야 한다. -->
+    <resultMap id="menuResultMap3" type="com.ohgiraffers.common.MenuDTO">
+        <constructor>
+            <idArg column="MENU_CODE" javaType="_int"/>
+            <arg column="MENU_NAME" javaType="string"/>
+            <arg column="MENU_PRICE" javaType="_int"/>
+            <arg column="CATEGORY_CODE" javaType="_int"/>
+            <arg column="ORDERABLE_STATUS" javaType="string"/>
+        </constructor>
+    </resultMap>
+
+    <select id="selectResultMapConstructor" resultMap="menuResultMap3">
+        SELECT
+            *
+        FROM
+            TBL_MENU
+        WHERE
+            ORDERABLE_STATUS = 'Y'
+    </select>
+
+    <!-- comment. association 엘리먼트
+
+     -->
+
+<!-- ===============================================resultMap==================================================== -->
 
 </mapper>
