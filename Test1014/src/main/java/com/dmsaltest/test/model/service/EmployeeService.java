@@ -52,4 +52,15 @@ public class EmployeeService {
 
         return employeeList;
     }
+
+    public List<EmployeeDTO> selectBydeptCodeOrEmpIdElesAllMember(Map<String, Object> criteria) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+        List<EmployeeDTO> employeeList = mapper.selectBydeptCodeOrEmpIdElesAllMember(criteria);
+
+        sqlSession.close();
+
+        return employeeList;
+    }
 }

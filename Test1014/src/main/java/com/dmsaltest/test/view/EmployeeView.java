@@ -31,6 +31,8 @@ public class EmployeeView {
                     employeeController.selectBydeptCode(inputDeptCode()); break;
                 case 3 :
                     employeeController.selectByRandom(inputRandom()); break;
+                case 4 :
+                    employeeController.selectBydeptCodeOrEmpIdElesAllMember(inputDeptCodeOrEmpId());break;
                 case 9 :
                     return;
             }
@@ -39,7 +41,6 @@ public class EmployeeView {
 
 
     }
-
 
     private static int inputSqlary() {
         Scanner sc = new Scanner(System.in);
@@ -69,4 +70,40 @@ public class EmployeeView {
 
         return empIdRandom;
     }
+
+    private static Map<String, Object> inputDeptCodeOrEmpId() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("검색 조건 (empId or deptCode or both or null) : ");
+        String condition = sc.nextLine();
+
+        Map<String, Object> criteria = new HashMap<>();
+        if("empId".equals(condition)){
+
+            System.out.print("검색 할 사원번호를 입력해주세요 : ");
+            String empIdValue = sc.nextLine();
+            criteria.put("empIdValue", empIdValue);
+
+        } else if("deptCode".equals(condition)){
+
+            System.out.print("검색 할 부서코드를 입력해주세요 : ");
+            String deptCodeValue = sc.nextLine();
+
+            criteria.put("deptCodeValue", deptCodeValue);
+
+        } else if("both".equals(condition)){
+
+            System.out.print("검색 할 사원번호를 입력해주세요 : ");
+            String empIdValue = sc.nextLine();
+            System.out.print("검색 할 부서코드를 입력해주세요 : ");
+            String deptCodeValue = sc.nextLine();
+
+            criteria.put("empIdValue", empIdValue);
+            criteria.put("deptCodeValue", deptCodeValue);
+        }
+
+        return criteria;
+    }
+
+
+
 }

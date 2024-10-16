@@ -6,6 +6,7 @@ import com.dmsaltest.test.model.service.EmployeeService;
 import com.dmsaltest.test.view.PrintResult;
 
 import java.util.List;
+import java.util.Map;
 
 public class EmployeeController {
 
@@ -48,6 +49,18 @@ public class EmployeeController {
             printResult.printEmployeeByRandom(employeeList);
         } else {
             printResult.printErrorMessage("selectRandom");
+        }
+
+    }
+
+    public void selectBydeptCodeOrEmpIdElesAllMember(Map<String, Object> criteria) {
+
+        List<EmployeeDTO> employeeList = employeeService.selectBydeptCodeOrEmpIdElesAllMember(criteria);
+
+        if (employeeList != null){
+            printResult.printEmployeeByDeptCodeOrEmpId(employeeList);
+        } else {
+            printResult.printErrorMessage("selectDeptCodeOrEmpId");
         }
 
     }

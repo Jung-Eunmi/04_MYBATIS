@@ -20,6 +20,8 @@ public class PrintResult {
                 errorMessage = "부서코드로 직원 조회를 실패하셨습니다."; break;
             case "selectRandom" :
                 errorMessage = "랜덤으로 직원 조회를 실패하셨습니다."; break;
+            case "selectDeptCodeOrEmpId" :
+                errorMessage = "부서코드 or 사원번호 or 둘다 or null 의 직원 조회를 실패하셨습니다."; break;
         }
 
         System.out.println(errorMessage);
@@ -34,6 +36,12 @@ public class PrintResult {
 
     public void printEmployeeByRandom(List<EmployeeDTO> employeeList) {
         for(EmployeeDTO employee : employeeList){
+            System.out.println(employee);
+        }
+    }
+
+    public void printEmployeeByDeptCodeOrEmpId(List<EmployeeDTO> employeeList) {
+        for(EmployeeDTO employee : employeeList) {
             System.out.println(employee);
         }
     }

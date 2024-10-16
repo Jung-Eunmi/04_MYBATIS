@@ -86,7 +86,21 @@
         <foreach collection="empIdRandom" item="empId" open="(" close=")" separator=",">
             #{empId}
         </foreach>
+    </select>
 
+    <select id="selectBydeptCodeOrEmpIdElesAllMember" parameterType="hashmap" resultMap="memberResultMap">
+        SELECT
+            *
+        FROM
+            EMPLOYEE
+        <trim prefix="WHERE" prefixOverrides="AND || OR">
+        <if test="empIdValue != null">
+            EMP_ID = #{empIdValue}
+        </if>
+        <if test="deptCodeValue != null">
+            AND DEPT_CODE = #{deptCodeValue}
+        </if>
+        </trim>
 
     </select>
 
