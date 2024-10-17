@@ -101,7 +101,14 @@
             AND DEPT_CODE = #{deptCodeValue}
         </if>
         </trim>
-
     </select>
+
+    <delete id="deleteByEmpId" parameterType="string">
+        DELETE
+        FROM
+            EMPLOYEE
+        WHERE
+            EMP_ID = #{empId}
+    </delete>
 
 </mapper>

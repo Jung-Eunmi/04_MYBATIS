@@ -64,4 +64,16 @@ public class EmployeeController {
         }
 
     }
+
+
+    public void deleteByEmpId(String empId) {
+
+
+        if(employeeService.deleteByEmpId(empId)){
+            printResult.printSuccessMessage("deleteOne");
+        } else {
+            printResult.printErrorMessage("deleteOne");
+        }
+
+    }
 }

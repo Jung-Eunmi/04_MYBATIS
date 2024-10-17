@@ -15,4 +15,6 @@ public interface EmployeeMapper {
     List<EmployeeDTO> selectByRandom(Map<String, List<Integer>> criteria);
 
     List<EmployeeDTO> selectBydeptCodeOrEmpIdElesAllMember(Map<String, Object> criteria);
+
+    int deleteByEmpId(String empId);
 }

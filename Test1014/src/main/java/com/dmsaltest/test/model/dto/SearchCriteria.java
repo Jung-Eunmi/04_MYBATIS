@@ -8,7 +8,7 @@ public class SearchCriteria {
     public SearchCriteria() {
     }
 
-    public SearchCriteria(String condition, String value) {
+    public SearchCriteria(String cond0ition, String value) {
         this.condition = condition;
         this.value = value;
     }

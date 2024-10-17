@@ -63,4 +63,21 @@ public class EmployeeService {
 
         return employeeList;
     }
+
+    public boolean deleteByEmpId(String empId) {
+        SqlSession sqlSession = getSqlSession();
+        mapper = sqlSession.getMapper(EmployeeMapper.class);
+
+        int result = mapper.deleteByEmpId(empId);
+
+        if(result>0){
+            sqlSession.commit();
+        } else {
+            sqlSession.rollback();
+        }
+
+        sqlSession.close();
+
+        return result>0? true : false;
+    }
 }

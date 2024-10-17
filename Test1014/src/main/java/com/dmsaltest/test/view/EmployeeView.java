@@ -33,6 +33,8 @@ public class EmployeeView {
                     employeeController.selectByRandom(inputRandom()); break;
                 case 4 :
                     employeeController.selectBydeptCodeOrEmpIdElesAllMember(inputDeptCodeOrEmpId());break;
+                case 5 :
+                    employeeController.deleteByEmpId(inputEmpId()); break;
                 case 9 :
                     return;
             }
@@ -104,6 +106,13 @@ public class EmployeeView {
         return criteria;
     }
 
+    private static String inputEmpId() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("검색 할 사원번호를 입력해주세요 : ");
+        String empId = sc.nextLine();
+
+        return empId;
+    }
 
 
 }

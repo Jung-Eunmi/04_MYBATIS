@@ -45,4 +45,15 @@ public class PrintResult {
             System.out.println(employee);
         }
     }
+
+    public void printSuccessMessage(String successCode) {
+        String successMessage = "";
+
+        switch (successCode) {
+            case "deleteOne" :
+                successMessage = "퇴사한 직원의 정보를 삭제하였습니다.";
+        }
+
+        System.out.println(successMessage);
+    }
 }
